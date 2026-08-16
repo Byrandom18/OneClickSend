@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">1 клик</string>
+    <string name="setup_title">Куда отправлять фото</string>
+    <string name="setup_subtitle">Один раз выберите мессенджер и чат. Дальше каждое нажатие кнопки сразу снимет кадр основной камерой и отправит его туда же.</string>
+    <string name="messenger_telegram">Telegram</string>
+    <string name="messenger_telegram_hint">Сообщения от бота</string>
+    <string name="messenger_vk">Группа ВКонтакте</string>
+    <string name="messenger_vk_hint">Сообщения от имени сообщества</string>
+    <string name="continue_action">Продолжить</string>
+    <string name="back_action">Назад</string>
+    <string name="to_camera">К камере</string>
+    <string name="chat_title">Выберите чат</string>
+    <string name="chat_manual_telegram">Или введите chat_id / @username</string>
+    <string name="chat_manual_vk">Или введите peer_id</string>
+    <string name="chat_id_hint">Например, 123456789</string>
+    <string name="refresh_chats">Обновить список</string>
+    <string name="no_chats_telegram">Список пуст. Пусть собеседник напишет боту /start, затем нажмите «Обновить список».</string>
+    <string name="no_chats_vk">Список пуст. Человек должен написать сообществу в личку (или добавьте сообщество в беседу), затем нажмите «Обновить список». Можно ввести peer_id вручную.</string>
+    <string name="save_chat">Сохранить и открыть камеру</string>
+    <string name="verify_chat">Проверить чат</string>
+    <string name="camera_permission_title">Нужна камера</string>
+    <string name="camera_permission_body">Чтобы снимать и сразу отправлять фото, разрешите доступ к камере.</string>
+    <string name="grant_camera">Разрешить камеру</string>
+    <string name="open_settings">Открыть настройки</string>
+    <string name="shutter_cd">Снять и отправить</string>
+    <string name="token_telegram_title">Токен бота Telegram</string>
+    <string name="token_telegram_hint">123456:ABC-DEF…</string>
+    <string name="token_telegram_help">Вставьте токен от @BotFather. Он сохранится на телефоне, пересобирать приложение не нужно. Собеседник должен написать боту /start (или добавьте бота в общий чат).</string>
+    <string name="token_vk_title">Ключ сообщества VK</string>
+    <string name="token_vk_hint">vk1.a.…</string>
+    <string name="token_vk_help">Вставьте ключ сообщества (не личный). Он сохранится на телефоне. В группе должны быть включены сообщения, права ключа: photos и messages.</string>
+    <string name="check_token">Проверить ключ</string>
+    <string name="change_key">Сменить ключ</string>
+    <string name="change_chat">Сменить чат или ключ</string>
+    <string name="sending">Отправка…</string>
+    <string name="sent">Отправлено</string>
+    <string name="send_error">Не удалось отправить</string>
+    <string name="queue_count">В очереди: %1$d</string>
+    <string name="to_label">Кому: %1$s</string>
+    <string name="error_empty_chat">Укажите чат</string>
+    <string name="error_network">Нет сети или сервер не ответил</string>
+    <string name="error_camera">Не удалось сделать снимок</string>
+    <string name="tap_hint">Нажмите — снимок сразу уйдёт в выбранный чат</string>
+</resources>
