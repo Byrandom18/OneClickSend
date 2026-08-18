@@ -41,5 +41,6 @@
     <string name="error_empty_chat">Укажите чат</string>
     <string name="error_network">Нет сети или сервер не ответил</string>
     <string name="error_camera">Не удалось сделать снимок</string>
-    <string name="tap_hint">Нажмите — снимок сразу уйдёт в выбранный чат</string>
+    <string name="retrying">Повтор отправки…</string>
+    <string name="tap_hint">Нажмите на экран — снимок сразу уйдёт в выбранный чат</string>
 </resources>

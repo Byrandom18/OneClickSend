@@ -21,6 +21,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -157,9 +158,10 @@ private fun CameraPreviewPane(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT,
             )
-            scaleType = PreviewView.ScaleType.FILL_CENTER
+            scaleType = PreviewView.ScaleType.FIT_CENTER
             implementationMode = PreviewView.ImplementationMode.COMPATIBLE
             keepScreenOn = true
+            setBackgroundColor(android.graphics.Color.BLACK)
         }
     }
     val imageCapture = remember {
@@ -169,6 +171,7 @@ private fun CameraPreviewPane(
             .build()
     }
     val captureExecutor = remember { Executors.newSingleThreadExecutor() }
+    val shutterInteraction = remember { MutableInteractionSource() }
     var capturing by remember { mutableStateOf(false) }
     var flash by remember { mutableStateOf(false) }
     var captureError by remember { mutableStateOf<String?>(null) }
@@ -209,7 +212,42 @@ private fun CameraPreviewPane(
         )
     }
 
-    Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
+    val capture = {
+        if (!capturing) {
+            capturing = true
+            flash = true
+            captureError = null
+            takePicture(
+                context = context,
+                imageCapture = imageCapture,
+                executor = captureExecutor,
+                onSaved = { file ->
+                    capturing = false
+                    onPhotoCaptured(file)
+                },
+                onError = { error ->
+                    capturing = false
+                    captureError = error.message ?: context.getString(R.string.error_camera)
+                },
+            )
+        }
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black)
+            .semantics {
+                this.contentDescription = context.getString(R.string.shutter_cd)
+                this.role = Role.Button
+            }
+            .clickable(
+                enabled = !capturing,
+                interactionSource = shutterInteraction,
+                indication = null,
+                onClick = capture,
+            ),
+    ) {
         AndroidView(
             factory = { previewView },
             modifier = Modifier.fillMaxSize(),
@@ -245,6 +283,7 @@ private fun CameraPreviewPane(
             )
             val statusText = when {
                 sendState.pendingCount > 1 -> stringResource(R.string.queue_count, sendState.pendingCount)
+                sendState.retrying -> stringResource(R.string.retrying)
                 sendState.pendingCount == 1 -> stringResource(R.string.sending)
                 !sendState.lastError.isNullOrBlank() -> sendState.lastError
                 sendState.lastSuccess -> stringResource(R.string.sent)
@@ -277,29 +316,7 @@ private fun CameraPreviewPane(
                 .border(width = 6.dp, color = Color.White, shape = CircleShape)
                 .padding(10.dp)
                 .clip(CircleShape)
-                .background(shutterColor)
-                .semantics {
-                    this.contentDescription = context.getString(R.string.shutter_cd)
-                    this.role = Role.Button
-                }
-                .clickable(enabled = !capturing) {
-                    capturing = true
-                    flash = true
-                    captureError = null
-                    takePicture(
-                        context = context,
-                        imageCapture = imageCapture,
-                        executor = captureExecutor,
-                        onSaved = { file ->
-                            capturing = false
-                            onPhotoCaptured(file)
-                        },
-                        onError = { error ->
-                            capturing = false
-                            captureError = error.message ?: context.getString(R.string.error_camera)
-                        },
-                    )
-                },
+                .background(shutterColor),
         )
     }
 }
